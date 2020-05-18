@@ -19,7 +19,7 @@ Then, execute,
 When everything is done, initialize there server with the following command:
 <code>php bin/console server:run</code>
 
-You can login as<b>ADMIN</b>and as a<b>USER</b>
+You can login as <b>ADMIN</b> and as a <b>USER</b>.
 
 Credentials for ADMIN:
 admin@example.com/123456
