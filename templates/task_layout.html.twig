@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'partials/header.html.twig' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h1>{{ task.title }}</h1>
+            </div>
+            <div class="col-6">
+                <h1>Task status: {{ task.statusName }}</h1>
+            </div>
+            <div class="col-12"><h3>Task details</h3></div>
+            <div class="col-6">
+                Assigned to: {{ task.email }}
+            </div>
+            <div class="col-6">
+                Created on: {{ task.created_at.date | date("F jS \\a\\t g:ia")  }}
+                <br>
+                Updated on: {{ task.updated_at.date | date("F jS \\a\\t g:ia")  }}
+            </div>
+            <div class="col-12"><h3>Description</h3></div>
+            <div class="col-12 description">
+                {{ task.description }}
+            </div>
+            <div class="col-12">
+                <h2>Actions</h2>
+                {{ form(changeStatusForm) }}
+            </div>
+            {% include 'partials/comment_layout.html.twig' %}
+            {% include 'partials/activity_layout.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

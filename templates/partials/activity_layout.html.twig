@@ -1,0 +1,24 @@
+{% set taskStatus = {1 : 'OPEN', 2 : 'IN PROGRESS', 3 : 'DONE'} %}
+<div class="col-12">
+    <h2>Activities</h2>
+    <div class="activities">
+        {% if activities %}
+            <ul class="list-group">
+                {% for activity in activities %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        {% if activity.field == 'status' %}
+                            <div>{{ activity.email }} modified task status from {{ taskStatus[activity.old_value] }} to {{ taskStatus[activity.new_value] }}</div>
+                        {% endif %}
+                        {% if activity.field == 'comment' %}
+                            <div>{{ activity.email }} added a new comment: {{ activity.new_value }}</div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No activity yet.
+            </div>
+        {% endif %}
+    </div>
+</div>

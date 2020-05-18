@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% set taskStatus = {1 : 'OPEN', 2 : 'IN PROGRESS', 3 : 'DONE'} %}
+
+{% block body %}
+    {% include 'partials/header.html.twig' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Notifications</h2>
+                <div class="activities">
+                    {% if notifications %}
+                        <ul class="list-group">
+                            {% for notification in notifications %}
+                                <li class="list-group-item d-flex justify-content-between">
+                                    {% if notification.field == 'status' %}
+                                        <div>{{ notification.email }} modified task status from {{ taskStatus[notification.old_value] }} to {{ taskStatus[notification.new_value] }}</div>
+                                    {% endif %}
+                                    {% if notification.field == 'comment' %}
+                                        <div>{{ notification.email }} added a new comment: {{ notification.new_value }}</div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="alert alert-warning" role="alert">
+                            No notifications yet.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

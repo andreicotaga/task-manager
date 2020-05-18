@@ -3,10 +3,53 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+            {% include 'partials/header.html.twig' %}
+            <div class="container">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="all-tasks">
+                        <div class="title"><h3>All tasks</h3></div>
+                        <div class="row">
+                            {% for task in tasks %}
+                                {% include 'partials/task_card.html.twig' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="past-tasks mb-4">
+                        <div class="title"><h3>Previous tasks</h3></div>
+                        <div class="row">
+                            {% for task in previousTasks %}
+                                {% include 'partials/task_card.html.twig' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="today-tasks mb-4">
+                        <div class="title"><h3>Today's tasks</h3></div>
+                        <div class="row">
+                            {% for task in todayTasks %}
+                                {% include 'partials/task_card.html.twig' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="to-be-done-tasks">
+                        <div class="title"><h3>Tasks to be done</h3></div>
+                        <div class="row">
+                            {% for task in toDoTasks %}
+                                {% include 'partials/task_card.html.twig' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('build/app.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

@@ -1,0 +1,24 @@
+<div class="col-3 mt-2">
+    <div class="card
+                {% if task.status == 'DONE' %}border-success{% endif %}
+                {% if task.status == 'IN PROGRESS' %}border-warning{% endif %}
+                {% if task.status == 'OPEN' %}border-primary{% endif %}
+     ">
+        <div class="card-body">
+            <div class="card-title"><b>{{ task.title }}</b></div>
+            <div class="card-text">Task status: <b>{{ task.status }}</b></div>
+            <div class="actions">
+                <a href="{{ path('app_task_read', { id: task.id }) }}" class="btn btn-primary">View</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-danger" href="{{ path('app_task_delete', { id: task.id }) }}">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="created-on">Created on: <b>{{ task.created_at.date | date("F jS \\a\\t g:ia") }}</b></div>
+            <div class="assigne">
+                Assigned to: <b>{{ task.email }}</b>
+            </div>
+        </div>
+    </div>
+</div>
